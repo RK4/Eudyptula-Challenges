@@ -1,0 +1,10 @@
+[    0.000000] Linux version 4.8.0-rc5-eudyptula-00075-gd71f058-dirty (mohsin@mohsins-PC) (gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.3) ) #2 SMP Sun Sep 11 00:27:02 PKT 2016
+[    0.000000] Command line: BOOT_IMAGE=/boot/vmlinuz-4.8.0-rc5-eudyptula-00075-gd71f058-dirty root=UUID=dd21d577-fd5c-4fc0-89c8-0d93fe5c484b ro quiet splash vt.handoff=7
+[    0.000000] KERNEL supported cpus:
+[    0.000000]   Intel GenuineIntel
+[    0.000000]   AMD AuthenticAMD
+[    0.000000]   Centaur CentaurHauls
+[    0.000000] x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
+[    0.000000] x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+[    0.000000] x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
+[    0.000000] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256

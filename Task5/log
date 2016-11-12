@@ -1,0 +1,19 @@
+[  102.201082] usb 2-1.1: new full-speed USB device number 4 using ehci-pci
+[  102.320784] usb 2-1.1: New USB device found, idVendor=03f0, idProduct=1024
+[  102.320788] usb 2-1.1: New USB device strings: Mfr=1, Product=2, SerialNumber=5
+[  102.320791] usb 2-1.1: Product: HP USB Smart Card Keyboard
+[  102.320793] usb 2-1.1: Manufacturer: Hewlett-Packard Company
+[  102.320795] usb 2-1.1: SerialNumber: 081867bf
+[  102.377748] WARNING! power/level is deprecated; use power/control instead
+[  102.479983] hello_world: loading out-of-tree module taints kernel.
+[  102.480411] Hello, USB Keyboard
+[  102.480415] Hello World
+[  112.910235] usb 2-1.1: USB disconnect, device number 4
+[  127.485078] usb 2-1.1: new full-speed USB device number 5 using ehci-pci
+[  127.604832] usb 2-1.1: New USB device found, idVendor=03f0, idProduct=1024
+[  127.604839] usb 2-1.1: New USB device strings: Mfr=1, Product=2, SerialNumber=5
+[  127.604843] usb 2-1.1: Product: HP USB Smart Card Keyboard
+[  127.604846] usb 2-1.1: Manufacturer: Hewlett-Packard Company
+[  127.604849] usb 2-1.1: SerialNumber: 081867bf
+[  139.571728] Bye, USB Keyboard
+[  139.571733] Goodbye World

@@ -1,0 +1,5 @@
+[    0.000000] Linux version 4.9.0-rc1-next-20161021 (mohsin@mohsins-PC) (gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.3) ) #1 SMP Sat Oct 22 18:50:02 PKT 2016
+[    0.000000] Command line: BOOT_IMAGE=/boot/vmlinuz-4.9.0-rc1-next-20161021Eudyptula root=UUID=dd21d577-fd5c-4fc0-89c8-0d93fe5c484b ro quiet splash vt.handoff=7
+[    0.000000] KERNEL supported cpus:
+[    0.000000]   Intel GenuineIntel
+[    0.000000]   AMD AuthenticAMD

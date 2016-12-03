@@ -1,0 +1,18 @@
+#Echo ID upon read
+root@mohsins-PC:~/LDP/t1/P6# cat /dev/eudyptula 
+3330c197cbcb
+
+#When correct ID is written to id do nothing.
+root@mohsins-PC:~/LDP/t1/P6# echo 3330c197cbcb > /dev/eudyptula 
+
+#When Invalid ID is written return error
+root@mohsins-PC:~/LDP/t1/P6# echo 3330c1 > /dev/eudyptula 
+bash: echo: write error: Invalid argument
+
+#When Invalid ID is written return error
+root@mohsins-PC:~/LDP/t1/P6# echo mohsin > /dev/eudyptula 
+bash: echo: write error: Invalid argument
+
+#When Invalid ID is written return error
+root@mohsins-PC:~/LDP/t1/P6# echo "3330c197cbcbdasda" > /dev/eudyptula 
+bash: echo: write error: Invalid argument

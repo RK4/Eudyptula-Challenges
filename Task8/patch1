@@ -1,0 +1,10 @@
+22a23,24
+> static char data_foo[4096];
+> static int length;
+67a70,75
+> 		pr_debug("ERROR");
+> 
+> 	jiffles_dir = debugfs_create_u32("jiffles", 0444, debugfs_dir,
+> 					&jiffies);
+> 
+> 	if (jiffles_dir == NULL)

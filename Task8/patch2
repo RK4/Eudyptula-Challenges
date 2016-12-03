@@ -1,0 +1,67 @@
+20c20,21
+< 
+---
+> static struct dentry *jiffles_dir;
+> static struct dentry *foo_dir;
+25a27
+> rwlock_t rw_lock;
+59a62,110
+> static ssize_t read_foo(struct file *file,  char __user *buf,
+> 			size_t len, loff_t *ppos)
+> {
+> 	int ret;
+> 
+> 	read_lock(&rw_lock);
+> 	ret = simple_read_from_buffer(buf, len, ppos, ID, ID_LEN);
+> 	read_unlock(&rw_lock);
+> 
+> 	return ret;
+> }
+> 
+> 
+> static ssize_t write_foo(struct file *file, const char __user *buf,
+> 			size_t len, loff_t *ppos)
+> {
+> 	write_lock(&rw_lock);
+> 
+> 	char recv[len];
+> 	size_t ret;
+> 
+> 	if (len > ID_LEN) {
+> 		write_unlock(&rw_lock);
+> 		return -EINVAL;
+> 	}
+> 
+> 	ret = simple_write_to_buffer(recv, ID_LEN, ppos, buf, len);
+> 
+> 	if (ret < 0) {
+> 		write_unlock(&rw_lock);
+> 		return ret;
+> 	}
+> 
+> 	recv[ID_LEN - 1] = '\0';
+> 
+> 	if (strcmp(recv, ID)) {
+> 		write_unlock(&rw_lock);
+> 		return -EINVAL;
+> 	}
+> 
+> 	write_unlock(&rw_lock);
+> 	return len;
+> }
+> 
+> static const struct file_operations fops_foo = {
+> 	.read = read_foo,
+> 	.write = write_foo,
+> };
+> 
+61a113,114
+> 	rwlock_init(&rw_lock);
+> 
+75a129,134
+> 		pr_debug("ERROR");
+> 
+> 	foo_dir = debugfs_create_file("foo", 0622, debugfs_dir,
+> 					data_foo, &fops_foo);
+> 
+> 	if (foo_dir == NULL)

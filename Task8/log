@@ -1,0 +1,9 @@
+root@mohsins-PC:/sys/kernel/debug/eudyptula# ls
+foo  id  jiffles
+root@mohsins-PC:/sys/kernel/debug/eudyptula# cat id 
+3330c197cbcbroot@mohsins-PC:/sys/kernel/debug/eudyptula# cat jiffles 
+3860103
+root@mohsins-PC:/sys/kernel/debug/eudyptula# echo gfdsgfda > foo
+bash: echo: write error: Invalid argument
+root@mohsins-PC:/sys/kernel/debug/eudyptula# echo 3330c197cbcb> foo
+

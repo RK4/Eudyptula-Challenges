@@ -1,3 +1,14 @@
+/*
+Usefull reading: 
+http://www.crashcourse.ca/wiki/index.php/The_basics_of_USB_drivers
+
+Things to DO:
+	Create a arrayusb_device_id.
+	Fill it using macros.
+	Register the device using macro in /include/module.h
+	#define MODULE_DEVICE_TABLE(type, name)	 
+*/
+
 #include <linux/kernel.h>
 #include <linux/usb.h>
 #include <linux/module.h>

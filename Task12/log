@@ -1,0 +1,10 @@
+[  110.983323] hello_world: loading out-of-tree module taints kernel.
+[  110.983941] Node created with id: 1 name: Alice 
+[  110.983942] Node created with id: 2 name: Bob 
+[  110.983943] Node created with id: 3 name: Dave 
+[  110.983944] Node created with id: 10 name: Gena 
+[  110.983945] id 3 = Dave
+[  110.983945] id 42 not found
+[  110.983945] Node deleted with id: 2 name: Bob 
+[  110.983946] Node deleted with id: 1 name: Alice 
+[  110.983946] Node deleted with id: 10 name: Gena 

@@ -1,0 +1,110 @@
+From 9d0626a73385182212166171bb93a41269637d8a Mon Sep 17 00:00:00 2001
+From: Mohsin Shan <mohsinshan1k@gmail.com>
+Date: Sun, 4 Mar 2018 00:38:26 +0500
+Subject: [PATCH] [PATCH] kernel: Add "id" field in task_stuct
+
+Added id field in task_stuct.
+Created id entry for each pid in proc.
+id variable is incremented after every read.
+---
+ fs/proc/base.c        | 34 ++++++++++++++++++++++++++++++++--
+ include/linux/sched.h |  2 +-
+ kernel/fork.c         |  3 +++
+ 3 files changed, 36 insertions(+), 3 deletions(-)
+
+diff --git a/fs/proc/base.c b/fs/proc/base.c
+index 9298324..2d5afdc 100644
+--- a/fs/proc/base.c
++++ b/fs/proc/base.c
+@@ -2453,7 +2453,7 @@ static int proc_pident_instantiate(struct inode *dir,
+ 	return -ENOENT;
+ }
+
+-static struct dentry *proc_pident_lookup(struct inode *dir,
++static struct dentry *proc_pident_lookup(struct inode *dir,
+ 					 struct dentry *dentry,
+ 					 const struct pid_entry *ents,
+ 					 unsigned int nents)
+@@ -2600,7 +2600,7 @@ static const struct pid_entry attr_dir_stuff[] = {
+
+ static int proc_attr_dir_readdir(struct file *file, struct dir_context *ctx)
+ {
+-	return proc_pident_readdir(file, ctx,
++	return proc_pident_readdir(file, ctx,
+ 				   attr_dir_stuff, ARRAY_SIZE(attr_dir_stuff));
+ }
+
+@@ -3312,6 +3312,34 @@ static const struct inode_operations proc_tid_comm_inode_operations = {
+ 		.permission = proc_tid_comm_permission,
+ };
+
++/*  ID Read operation */
++static ssize_t eudyptula_id_read(struct file *file, char __user *buf,
++			size_t count, loff_t *ppos)
++{
++    char id_buffer[PROC_NUMBUF];
++    int retval = 0;
++
++    struct task_struct *task = get_proc_task(file_inode(file));
++    if (!task) {
++        retval = -ESRCH;
++        goto out;
++    }
++
++    retval = snprintf(id_buffer, sizeof(id_buffer), "%llx", task->id);
++    retval = simple_read_from_buffer(buf, count, ppos, id_buffer, retval);
++
++    if (retval)
++        task->id++;
++out:
++    put_task_struct(task);
++    return retval;
++}
++
++/* Proc Eudyptula ID operations */
++static const struct file_operations proc_eudyptula_id_operations = {
++        .read = eudyptula_id_read,
++};
++
+ /*
+  * Tasks
+  */
+@@ -3405,6 +3433,8 @@ static const struct pid_entry tid_base_stuff[] = {
+ #ifdef CONFIG_LIVEPATCH
+ 	ONE("patch_state",  S_IRUSR, proc_pid_patch_state),
+ #endif
++    /*  Add Id in proc fs for each pid */
++    REG("id", S_IRUGO, proc_eudyptula_id_operations),
+ };
+
+ static int proc_tid_base_readdir(struct file *file, struct dir_context *ctx)
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index b161ef8..80453c2 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1099,7 +1099,7 @@ struct task_struct {
+ 	/* Used by LSM modules for access restriction: */
+ 	void				*security;
+ #endif
+-
++    u64 id;
+ 	/*
+ 	 * New fields for task_struct should be added above here, so that
+ 	 * they are included in the randomized portion of task_struct.
+diff --git a/kernel/fork.c b/kernel/fork.c
+index e5d9d40..5ad453b 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1858,6 +1858,9 @@ static __latent_entropy struct task_struct *copy_process(
+ 	p->nr_dirtied_pause = 128 >> (PAGE_SHIFT - 10);
+ 	p->dirty_paused_when = 0;
+
++    /*  Eudyptula ID  */
++    p->id = 0x3330c197cbcb;
++
+ 	p->pdeath_signal = 0;
+ 	INIT_LIST_HEAD(&p->thread_group);
+ 	p->task_works = NULL;
+--
+2.7.4
+

@@ -1,0 +1,19 @@
+19a20
+> static struct kmem_cache *list_cache;
+45c46
+< 	new_identity =  kmalloc(sizeof(struct identity), GFP_KERNEL);
+---
+> 	new_identity =  kmem_cache_alloc(list_cache, GFP_ATOMIC);
+74c75
+< 	kfree(node);
+---
+> 	kmem_cache_free(list_cache, node);
+79a81,85
+> 	list_cache = kmem_cache_create("list_cache", sizeof(struct identity),
+> 					0, SLAB_HWCACHE_ALIGN, NULL);
+> 	if (!list_cache)
+> 		return -ENOMEM;
+> 
+108a115,116
+> 	kmem_cache_destroy(list_cache);
+> 
